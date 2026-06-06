@@ -5,6 +5,11 @@
 [![Release](https://img.shields.io/github/v/release/IYUNCI/skillops-local)](https://github.com/IYUNCI/skillops-local/releases)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
+## 应用截图（可替换为真实页面截图）
+
+![SkillOps Home（示意图）](./assets/screenshots/page-home.png)
+![SkillOps 工作台（示意图）](./assets/screenshots/page-workbench.png)
+
 本地优先的 Skill / MCP / Agent 能力管理工具。
 
 SkillOps Local 准备以 MIT 协议开源。它不是另一个云端目录站，而是一个跑在用户电脑上的 Agent 能力控制台：发现本机 skills、MCP servers、CLI 工具，显示简介和使用方法，并把安装、移除、风险检查留在本地完成。
