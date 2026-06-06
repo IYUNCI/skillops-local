@@ -8,7 +8,7 @@
   "frontend:dev:serverUrl": "auto",
   "info": {
     "productName": "SkillOps Local",
-    "productVersion": "0.1.1",
+    "productVersion": "0.1.3",
     "comments": "Local-first Skill and MCP capability manager.",
     "copyright": "Copyright © 2026 云磁数字"
   },

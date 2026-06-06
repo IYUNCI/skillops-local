@@ -68,13 +68,18 @@ fs.writeFileSync(wailsJsonPath, `${JSON.stringify(wailsJson, null, 2)}\n`, "utf8
 
 let appSource = fs.readFileSync(appGoPath, "utf8");
 const oldSource = appSource;
-appSource = appSource.replace(/appVersion\s*=\s*\"[^\"]*\"/, `appVersion            = \"${version}\"`);
-appSource = appSource.replace(/appAuthor\s*=\s*\"[^\"]*\"/, `appAuthor             = \"${APP_AUTHOR}\"`);
-appSource = appSource.replace(/appCopyright\s*=\s*\"[^\"]*\"/, `appCopyright          = \"${APP_COPYRIGHT}\"`);
 
-if (appSource === oldSource) {
-  throw new Error("未找到 appVersion 常量，版本同步失败。");
+function replaceConst(source, key, value, width) {
+  const pattern = new RegExp(`${key}\\s*=\\s*\\\"[^\\\"]*\\\"`);
+  if (!pattern.test(source)) {
+    throw new Error(`未找到 ${key} 常量，版本同步失败。`);
+  }
+  return source.replace(pattern, `${key}${" ".repeat(Math.max(0, width - key.length))}= \"${value}\"`);
 }
+
+appSource = replaceConst(oldSource, "appVersion", version, "appVersion".length + 12);
+appSource = replaceConst(appSource, "appAuthor", APP_AUTHOR, "appAuthor".length + 13);
+appSource = replaceConst(appSource, "appCopyright", APP_COPYRIGHT, "appCopyright".length + 10);
 
 fs.writeFileSync(appGoPath, appSource, "utf8");
 

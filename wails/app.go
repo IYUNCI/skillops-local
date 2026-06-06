@@ -33,7 +33,7 @@ const (
 
 	defaultUpdateRepoOwner = "IYUNCI"
 	defaultUpdateRepoName  = "skillops-local"
-	appVersion            = "0.1.1"
+	appVersion            = "0.1.3"
 	appAuthor             = "yunpai"
 	appCopyright          = "Copyright © 2026 云磁数字"
 )
