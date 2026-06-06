@@ -10,9 +10,16 @@
 ![SkillOps Home（示意图）](./assets/screenshots/page-home.png)
 ![SkillOps 工作台（示意图）](./assets/screenshots/page-workbench.png)
 
-本地优先的 Skill / MCP / Agent 能力管理工具。
+SkillOps Local 是本地优先的 Skill/MCP/Agent 能力工作台。它把“发现、审计、安装、更新”整合到一套桌面客户端与 CLI：先扫描你机器和项目里的 `SKILL.md`、MCP 配置、CLI 工具，再给出依赖关系、风险提示和一键治理建议，所有核心操作都尽量留在本机完成。
 
-SkillOps Local 准备以 MIT 协议开源。它不是另一个云端目录站，而是一个跑在用户电脑上的 Agent 能力控制台：发现本机 skills、MCP servers、CLI 工具，显示简介和使用方法，并把安装、移除、风险检查留在本地完成。
+SkillOps Local is a local-first desktop and CLI workbench for Skill and MCP ecosystems.
+It discovers local resources, visualizes dependency relationships, runs risk checks, and supports safe install/update workflows with local-first execution.
+
+项目作用：
+- 资产聚合：把分散的 Skill / MCP 资源整合为统一清单。
+- 风险前置：安装/更新前提示高风险脚本、密钥泄露和危险命令。
+- 可控协作：支持本地审计、变更历史和共享迁移。
+- 交付闭环：内置菜单、签名、安装器与更新检查，连接 GitHub 发布。
 
 V0 先解决三件事：
 
@@ -46,14 +53,14 @@ http://localhost:18765/
 npm run desktop
 ```
 
-生成 Wails/Go 原生 macOS 客户端：
+生成 Wails/Go 原生 macOS 和 Windows 客户端（推荐）：
 
 ```bash
-npm run desktop:pack:mac-m4
+npm run desktop:pack:all
 open "$HOME/.skillops/builds/wails/mac-arm64/SkillOps Local.app"
 ```
 
-更快的开发打包：
+单独打包（自动递增 patch 版本）：
 
 ```bash
 npm run desktop:pack:mac-m4
@@ -162,11 +169,11 @@ skillops ui [--port <port>] [--host <host>] [--root <path>] [--open]
 - 终端摘要和 JSON 输出。
 - mac M 系列和 Windows Wails/Go 打包脚本。
 - GitHub Actions 工作流：手动触发或打 tag 后构建 mac arm64 和 Windows x64 客户端。
+- 桌面工作台重构：新增「仪表盘」「扫描与风险」「MCP 管理」「更新中心」「签名与安装器」5 个页面。
+- 原生能力增强：菜单栏支持更新检测、服务重启、签名查询、安装器目录和快速跳转。
+- 上架与发布能力：补齐 App Store 商品元信息、截图说明、GitHub Release 文案（中英）与发布清单。
 
-下一步：
-
-- 把增强能力拆成更细的 UI 工作台页面。
-- 加强 Wails 原生能力：菜单栏、更新、签名和安装器。
+状态：当前版本可进入“上架准备”阶段，建议补充签名证书与隐私说明后提交。
 
 ## 开源协作
 
@@ -179,6 +186,8 @@ skillops ui [--port <port>] [--host <host>] [--root <path>] [--open]
 
 - 已整理可直接发的文案： [PROMOTION.md](/Users/jiang/Documents/Codex/2026-06-04/skill-skill-skill-skill-mcp/skillops-local/PROMOTION.md)
 - 发布前检查清单： [OPEN_SOURCE_CHECKLIST.md](/Users/jiang/Documents/Codex/2026-06-04/skill-skill-skill-skill-mcp/skillops-local/OPEN_SOURCE_CHECKLIST.md)
+- App Store 元信息： [APP_STORE_METADATA.md](/Users/jiang/Documents/Codex/2026-06-04/skill-skill-skill-skill-mcp/skillops-local/APP_STORE_METADATA.md)
+- 发布说明： [release-notes/](./release-notes)
 
 仓库默认文案链接示例：
 - `https://github.com/IYUNCI/skillops-local`

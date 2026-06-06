@@ -10,10 +10,10 @@
     "productName": "SkillOps Local",
     "productVersion": "0.1.1",
     "comments": "Local-first Skill and MCP capability manager.",
-    "copyright": "Copyright 2026 SkillOps"
+    "copyright": "Copyright © 2026 云磁数字"
   },
   "author": {
-    "name": "SkillOps contributors",
+    "name": "yunpai",
     "email": ""
   }
 }

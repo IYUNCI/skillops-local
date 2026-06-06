@@ -4732,6 +4732,13 @@ function renderHtml(options: UiOptions): string {
       }).join("");
     }
 
+    const params = new URLSearchParams(window.location.search);
+    const requestTab = params.get("tab");
+    const validTabs = ["capabilities", "installed", "market", "cli", "issues", "history", "mcp-tools", "trash"];
+    if (requestTab && validTabs.includes(requestTab)) {
+      switchTab(requestTab);
+    }
+
     applyTranslations();
     load();
     if (!permissions.onboarded) {

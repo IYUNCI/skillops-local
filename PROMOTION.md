@@ -76,3 +76,48 @@ https://github.com/IYUNCI/skillops-local
 Excited to open source SkillOps Local.
 A local-first toolkit for managing Skills and MCP integrations with safety checks and a unified workflow (CLI + UI). Great for teams and individuals who want a cleaner, auditable agent toolchain.
 Repo: https://github.com/IYUNCI/skillops-local
+
+## App Store 商品页文案（中文 / English）
+
+### 中文简介（直接复制到 App Store）
+SkillOps Local 是本地优先的 Skill 与 MCP 工作台。
+
+它把本地技能、MCP 配置、扫描与风险治理放到一个桌面客户端里，支持界面化审计、可视化依赖关系和一键管理，减少误装、误删、误执行的风险。
+
+- 本地服务自启动与状态监控
+- 扫描与风险页，聚合本机能力与项目配置
+- MCP 管理页，统一查看并维护服务入口
+- 更新中心，检查新版本
+- 签名与安装器，辅助 macOS 原生分发
+
+### English Product Description（App Store）
+SkillOps Local is a local-first Skill and MCP desktop workbench.
+
+Manage your local skill ecosystem, MCP configurations, scanning, risk checks, and install/remove workflows in one app.
+
+- Local service launcher and health status
+- Dedicated scan and risk page
+- MCP management workspace
+- Update center for release checks
+- Signing and installer support for macOS packaging workflows
+
+## 版本说明（不含 AI 提示内容）
+
+### 中文
+本次更新仅发布用户可见功能与发布文案，不包含 AI 提示词、模型实验指令或内部工程流程。可直接用于 README、Release Note、App Store 描述。
+
+### English
+This release includes only user-facing features and release copy. It intentionally excludes any AI prompt text, model-training notes, or internal dev-only prompts.
+
+## 页面截图清单（用于发布）
+- `assets/screenshots/page-home.png`
+- `assets/screenshots/page-workbench.png`
+- `assets/skilloips-ui.png`
+- `assets/skilloips-ui@2x.png`
+
+请在本地 `release/screenshots/` 目录放置 App Store 大小标准截图（说明文件在仓库内 `release-notes/screenshots-guide.md`），命名：
+- `workbench-dashboard-mac-1.png`
+- `workbench-scanner-mac-2.png`
+- `workbench-mcp-mac-3.png`
+- `workbench-update-mac-4.png`
+- `workbench-installer-mac-5.png`
