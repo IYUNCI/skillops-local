@@ -7,7 +7,7 @@
   - [x] LICENSE 已存在（MIT）
 - [ ] 仓库说明
   - [x] README 包含安装与快速开始
-  - [ ] 在 README 添加 GitHub 仓库与贡献方式（若你已确定仓库地址）
+- [x] 在 README 添加 GitHub 仓库与贡献方式（已确认 `IYUNCI/skillops-local`）
 - [ ] 文档
   - [x] CONTRIBUTING.md 存在
   - [x] DEPLOYMENT.md 存在
@@ -16,7 +16,7 @@
   - [x] release workflow 已有
   - [ ] 如需 App Store 包，补充签名与上传说明
 - [ ] 版本与发布
-  - [ ] `package.json` version 与标签一致
+- [ ] `package.json` version 与标签一致
   - [ ] 创建首个 tag（v0.1.1）
   - [ ] 在 GitHub 上发布 Release 并附带说明
 

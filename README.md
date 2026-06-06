@@ -1,5 +1,10 @@
 # SkillOps Local
 
+![SkillOps Local logo](./assets/skilloips.svg)
+
+[![Release](https://img.shields.io/github/v/release/IYUNCI/skillops-local)](https://github.com/IYUNCI/skillops-local/releases)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+
 本地优先的 Skill / MCP / Agent 能力管理工具。
 
 SkillOps Local 准备以 MIT 协议开源。它不是另一个云端目录站，而是一个跑在用户电脑上的 Agent 能力控制台：发现本机 skills、MCP servers、CLI 工具，显示简介和使用方法，并把安装、移除、风险检查留在本地完成。
@@ -171,6 +176,6 @@ skillops ui [--port <port>] [--host <host>] [--root <path>] [--open]
 - 发布前检查清单： [OPEN_SOURCE_CHECKLIST.md](/Users/jiang/Documents/Codex/2026-06-04/skill-skill-skill-skill-mcp/skillops-local/OPEN_SOURCE_CHECKLIST.md)
 
 仓库默认文案链接示例：
-- `https://github.com/yunci01/skillops-local`
+- `https://github.com/IYUNCI/skillops-local`
 
 如使用其他仓库名，请把 README 与文案中的链接替换为你的正式地址。
