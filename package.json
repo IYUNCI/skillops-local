@@ -1,0 +1,77 @@
+{
+  "name": "skillops-local",
+  "version": "0.1.1",
+  "description": "Local-first Skill and MCP capability manager.",
+  "type": "module",
+  "author": "SkillOps contributors",
+  "keywords": [
+    "skill",
+    "mcp",
+    "codex",
+    "claude",
+    "agent-tools",
+    "local-first"
+  ],
+  "bin": {
+    "skillops": "./dist/cli.js"
+  },
+  "files": [
+    "assets",
+    "dist/*.js",
+    "dist/*.d.ts",
+    "scripts/prepare-wails.cjs",
+    "scripts/run-wails.cjs",
+    "scripts/generate-icons.cjs",
+    "wails/app.go",
+    "wails/main.go",
+    "wails/wails.json",
+    "wails/go.mod",
+    "wails/go.sum",
+    "wails/frontend/index.html",
+    "wails/frontend/package.json",
+    "wails/frontend/package-lock.json",
+    "wails/frontend/src/**/*",
+    "wails/build/**/*",
+    "README.md",
+    "DEPLOYMENT.md",
+    "BUSINESS_MODEL.md"
+  ],
+  "scripts": {
+    "dev": "tsx src/cli.ts",
+    "build": "node scripts/build.mjs",
+    "start": "node dist/cli.js",
+    "icons:generate": "node scripts/generate-icons.cjs",
+    "wails:prepare": "npm run build && node scripts/prepare-wails.cjs",
+    "wails:dev": "npm run wails:prepare && node scripts/run-wails.cjs dev",
+    "wails:frontend:build": "node scripts/build-wails-frontend.cjs",
+    "wails:pack:mac-m4": "npm run wails:prepare && npm run wails:frontend:build && node scripts/run-wails.cjs build -clean -s -platform darwin/arm64 -o SkillOpsLocal",
+    "wails:pack:win": "npm run wails:prepare && npm run wails:frontend:build && node scripts/run-wails.cjs build -clean -s -platform windows/amd64 -o SkillOpsLocal",
+    "wails:doctor": "node scripts/run-wails.cjs doctor",
+    "desktop": "npm run wails:dev",
+    "desktop:pack": "npm run wails:pack:mac-m4",
+    "desktop:pack:win": "npm run wails:pack:win",
+    "desktop:pack:mac:mas": "npm run wails:pack:mac-m4 && node scripts/sign-mas.cjs",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "prepack": "npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^15.0.0",
+    "fast-glob": "^3.3.3",
+    "gray-matter": "^4.0.3",
+    "picocolors": "^1.1.1",
+    "smol-toml": "^1.6.1",
+    "yaml": "^2.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "esbuild": "^0.28.0",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.8"
+  }
+}

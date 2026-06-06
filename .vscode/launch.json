@@ -1,0 +1,132 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "SkillOps: Scan Local",
+            "runtimeExecutable": "node",
+            "runtimeArgs": [
+                "--import",
+                "tsx"
+            ],
+            "args": [
+                "${workspaceFolder}/src/cli.ts",
+                "scan"
+            ],
+            "console": "integratedTerminal",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "SkillOps: Scan Local (Probe MCP)",
+            "runtimeExecutable": "node",
+            "runtimeArgs": [
+                "--import",
+                "tsx"
+            ],
+            "args": [
+                "${workspaceFolder}/src/cli.ts",
+                "scan",
+                "--probe-mcp"
+            ],
+            "console": "integratedTerminal",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "SkillOps: Lint Active File/Folder",
+            "runtimeExecutable": "node",
+            "runtimeArgs": [
+                "--import",
+                "tsx"
+            ],
+            "args": [
+                "${workspaceFolder}/src/cli.ts",
+                "lint",
+                "${file}"
+            ],
+            "console": "integratedTerminal",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "SkillOps: Doctor MCP (Active Config File)",
+            "runtimeExecutable": "node",
+            "runtimeArgs": [
+                "--import",
+                "tsx"
+            ],
+            "args": [
+                "${workspaceFolder}/src/cli.ts",
+                "doctor",
+                "mcp",
+                "${file}"
+            ],
+            "console": "integratedTerminal",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "SkillOps: Doctor MCP (Enter Name)",
+            "runtimeExecutable": "node",
+            "runtimeArgs": [
+                "--import",
+                "tsx"
+            ],
+            "args": [
+                "${workspaceFolder}/src/cli.ts",
+                "doctor",
+                "mcp",
+                "${input:mcpName}"
+            ],
+            "console": "integratedTerminal",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "SkillOps: Share Active Folder",
+            "runtimeExecutable": "node",
+            "runtimeArgs": [
+                "--import",
+                "tsx"
+            ],
+            "args": [
+                "${workspaceFolder}/src/cli.ts",
+                "share",
+                "${file}",
+                "--include-source"
+            ],
+            "console": "integratedTerminal",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        }
+    ],
+    "inputs": [
+        {
+            "id": "mcpName",
+            "type": "promptString",
+            "description": "Enter the MCP server name (e.g., github, filesystem)",
+            "default": ""
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>CFBundlePackageType</key>
+        <string>APPL</string>
+        <key>CFBundleName</key>
+        <string>SkillOps Local</string>
+        <key>CFBundleExecutable</key>
+        <string>SkillOpsLocal</string>
+        <key>CFBundleIdentifier</key>
+        <string>com.skillops.local</string>
+        <key>CFBundleVersion</key>
+        <string>0.1.1</string>
+        <key>CFBundleGetInfoString</key>
+        <string>Local-first Skill and MCP capability manager.</string>
+        <key>CFBundleShortVersionString</key>
+        <string>0.1.1</string>
+        <key>CFBundleIconFile</key>
+        <string>iconfile</string>
+        <key>LSMinimumSystemVersion</key>
+        <string>10.13.0</string>
+        <key>NSHighResolutionCapable</key>
+        <string>true</string>
+        <key>NSPrincipalClass</key>
+        <string>NSApplication</string>
+        <key>NSAppTransportSecurity</key>
+        <dict>
+            <key>NSAllowsLocalNetworking</key>
+            <true/>
+        </dict>
+        <key>NSHumanReadableCopyright</key>
+        <string>Copyright 2026 SkillOps</string>
+        
+        
+    </dict>
+</plist>

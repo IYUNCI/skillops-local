@@ -1,0 +1,7 @@
+node_modules/
+dist/
+wails/assets/
+wails/backend-dist/
+.DS_Store
+*.log
+.skillops/
