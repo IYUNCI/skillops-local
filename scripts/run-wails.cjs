@@ -46,6 +46,23 @@ function copyWailsProjectToStage(stageRoot) {
   });
 }
 
+function syncIconsIntoStage(stagedWailsRoot) {
+  const sourceIconFile = path.join(stagedWailsRoot, "assets", "skilloips.icns");
+  const sourceIconWinFile = path.join(stagedWailsRoot, "assets", "skilloips.ico");
+  const targetIconFile = path.join(stagedWailsRoot, "build", "iconfile.icns");
+  const targetIconWinFile = path.join(stagedWailsRoot, "build", "windows", "icon.ico");
+
+  if (fs.existsSync(sourceIconFile)) {
+    fs.mkdirSync(path.dirname(targetIconFile), { recursive: true });
+    fs.copyFileSync(sourceIconFile, targetIconFile);
+  }
+
+  if (fs.existsSync(sourceIconWinFile)) {
+    fs.mkdirSync(path.dirname(targetIconWinFile), { recursive: true });
+    fs.copyFileSync(sourceIconWinFile, targetIconWinFile);
+  }
+}
+
 function getWailsAppName() {
   try {
     const config = JSON.parse(fs.readFileSync(path.join(wailsRoot, "wails.json"), "utf8"));
@@ -105,6 +122,7 @@ function runWailsBuildInStage(wailsBin) {
 
   try {
     copyWailsProjectToStage(stagedWailsRoot);
+    syncIconsIntoStage(stagedWailsRoot);
     scrubMacExtendedAttributes(stagedWailsRoot);
 
     const result = spawnSync(wailsBin, args, {

@@ -1,9 +1,17 @@
 {
   "name": "skillops-local",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "description": "A local-first Skill and MCP capability workbench for secure AI agent operations.",
   "type": "module",
   "author": "yunpai",
+  "homepage": "https://github.com/your-org/skillops-local",
+  "bugs": {
+    "url": "https://github.com/your-org/skillops-local/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/skillops-local.git"
+  },
   "keywords": [
     "skill",
     "mcp",
@@ -51,6 +59,8 @@
     "dev": "tsx src/cli.ts",
     "icons:generate": "node scripts/generate-icons.cjs",
     "prepack": "npm run build",
+    "publish:prepare": "npm run check && npm run build",
+    "publish:cli": "npm run publish:prepare && npm publish --access public",
     "start": "node dist/cli.js",
     "test": "vitest run --passWithNoTests",
     "wails:dev": "npm run wails:prepare && node scripts/run-wails.cjs dev",
@@ -66,6 +76,10 @@
     "node": ">=20"
   },
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
     "commander": "^15.0.0",
     "fast-glob": "^3.3.3",

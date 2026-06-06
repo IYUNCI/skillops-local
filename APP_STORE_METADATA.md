@@ -49,7 +49,7 @@ It helps you scan local `SKILL.md`, MCP settings, command definitions, and risk 
 No user code or credentials are required to be uploaded by default.
 
 ### 支持 URL（示例）
-https://github.com/IYUNCI/skillops-local
+https://github.com/your-org/skillops-local
 
 ### 隐私说明（可直接粘贴）
 - SkillOps Local 默认在本地扫描和处理文件，相关日志与配置保存在本机。

@@ -123,7 +123,7 @@ func buildMenu(app *App) *menu.Menu {
 		}
 	})
 	system.AddText("打开发布页", nil, func(_ *menu.CallbackData) {
-		_ = app.OpenURL("https://github.com/IYUNCI/skillops-local/releases")
+		_ = app.OpenURL("https://github.com/your-org/skillops-local/releases")
 	})
 
 	if stdRuntime.GOOS == "darwin" {

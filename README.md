@@ -2,13 +2,13 @@
 
 ![SkillOps Local logo](./assets/skilloips.svg)
 
-[![Release](https://img.shields.io/github/v/release/IYUNCI/skillops-local)](https://github.com/IYUNCI/skillops-local/releases)
+[![Release](https://img.shields.io/github/v/release/your-org/skillops-local)](https://github.com/your-org/skillops-local/releases)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
-## 应用截图（可替换为真实页面截图）
+## 应用截图（真实页面）
 
-![SkillOps Home（示意图）](./assets/screenshots/page-home.png)
-![SkillOps 工作台（示意图）](./assets/screenshots/page-workbench.png)
+![SkillOps Home（真实截图）](./assets/screenshots/page-home.png)
+![SkillOps 工作台（真实截图）](./assets/screenshots/page-workbench.png)
 
 SkillOps Local 是本地优先的 Skill/MCP/Agent 能力工作台。它把“发现、审计、安装、更新”整合到一套桌面客户端与 CLI：先扫描你机器和项目里的 `SKILL.md`、MCP 配置、CLI 工具，再给出依赖关系、风险提示和一键治理建议，所有核心操作都尽量留在本机完成。
 
@@ -178,18 +178,56 @@ skillops ui [--port <port>] [--host <host>] [--root <path>] [--open]
 ## 开源协作
 
 - License: MIT，见 [LICENSE](./LICENSE)。
+- 本仓库为 MIT 协议开源，默认采用本地优先策略（Local-first）：CLI 是默认发行入口，桌面客户端为增强体验端。
 - 贡献流程见 [CONTRIBUTING.md](./CONTRIBUTING.md)。
-- 推荐先发布 npm CLI，再发布桌面包；桌面包可通过 GitHub Actions 生成。
-- 提交新 skill 来源时，请优先提供公开 GitHub URL、简介、使用方法和风险说明。
+
+### 发布顺序（建议）
+
+1. 本地优先：`npm` CLI 首发
+```bash
+npm run publish:prepare
+npm run publish:cli
+```
+
+2. macOS（Apple Silicon）桌面发布
+```bash
+npm run desktop:pack:mac-m4
+open "$HOME/.skillops/builds/wails/mac-arm64/SkillOps Local.app"
+```
+
+3. Windows 桌面发布
+```bash
+npm run desktop:pack:win
+```
+
+4. GitHub Release（tag 驱动）
+- 推送形如 `vX.Y.Z` 的 tag，会触发 `.github/workflows/desktop-release.yml`，同步打包 mac M 系列与 Windows 客户端产物。
 
 ## 开源发布文案（中文 / English）
 
 - 已整理可直接发的文案： [PROMOTION.md](/Users/jiang/Documents/Codex/2026-06-04/skill-skill-skill-skill-mcp/skillops-local/PROMOTION.md)
 - 发布前检查清单： [OPEN_SOURCE_CHECKLIST.md](/Users/jiang/Documents/Codex/2026-06-04/skill-skill-skill-skill-mcp/skillops-local/OPEN_SOURCE_CHECKLIST.md)
-- App Store 元信息： [APP_STORE_METADATA.md](/Users/jiang/Documents/Codex/2026-06-04/skill-skill-skill-skill-mcp/skillops-local/APP_STORE_METADATA.md)
 - 发布说明： [release-notes/](./release-notes)
 
 仓库默认文案链接示例：
-- `https://github.com/IYUNCI/skillops-local`
+- `https://github.com/your-org/skillops-local`
 
 如使用其他仓库名，请把 README 与文案中的链接替换为你的正式地址。
+
+## 版本简介（中英文）
+
+### v0.1.5 简介
+
+- 中文：SkillOps Local 0.1.5 正式聚焦桌面发布链路稳定性，补齐真实截图与发布文案，支持 macOS/Windows 打包产物同步、版本检测、签名与安装器路径可见化。
+- English: SkillOps Local 0.1.5 focuses on stable desktop release flow, adds finalized release copy with real screenshots, and improves synchronized macOS/Windows packaging visibility for update checking, signing, and installer paths.
+
+### 资源与截图
+
+- 首页快照（真实）：`assets/screenshots/page-home.png`
+- 工作台快照（真实）：`assets/screenshots/page-workbench.png`
+
+---
+
+版本号：0.1.5  
+作者版权：Copyright © 2026 yunpai / 云磁数字  
+SHA：发布页补充对应 tag 的提交 SHA 与 `sha256` 校验值（如 `shasum -a 256 <artifact>`）

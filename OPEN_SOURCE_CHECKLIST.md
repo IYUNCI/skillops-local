@@ -7,7 +7,7 @@
   - [x] LICENSE 已存在（MIT）
 - [ ] 仓库说明
   - [x] README 包含安装与快速开始
-- [x] 在 README 添加 GitHub 仓库与贡献方式（已确认 `IYUNCI/skillops-local`）
+- [x] 在 README 添加 GitHub 仓库与贡献方式（已确认 `your-org/skillops-local`）
 - [ ] 文档
   - [x] CONTRIBUTING.md 存在
   - [x] DEPLOYMENT.md 存在

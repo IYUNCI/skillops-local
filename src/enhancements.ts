@@ -6,7 +6,7 @@ import path from "node:path";
 import matter from "gray-matter";
 import fg from "fast-glob";
 import { scanCapabilities } from "./scan.js";
-import { parseGitHubSource } from "./market.js";
+import { findSkillDirs, noSkillMdErrorMessage, parseGitHubSource } from "./market.js";
 import { lintSkill } from "./skill-lint.js";
 import { getInstalledInventory, type InstalledInventoryItem } from "./installed.js";
 import { doctorMcpByNameOrPath, doctorMcpServer } from "./mcp-doctor.js";
@@ -430,14 +430,27 @@ async function resolveSkillSource(source: string, tempRoot: string): Promise<str
   if (existsSync(path.join(local, "SKILL.md"))) return local;
   const parsed = parseGitHubSource(source);
   await gitOutput(["clone", "--depth", "1", ...(parsed.branch ? ["--branch", parsed.branch] : []), parsed.repoUrl, tempRoot]);
-  return parsed.subdir ? path.join(tempRoot, parsed.subdir) : singleSkillDir(tempRoot);
+  const skillRoot = parsed.subdir ? path.join(tempRoot, parsed.subdir) : tempRoot;
+  return singleSkillDir(skillRoot, source, tempRoot, parsed.subdir);
 }
 
-async function singleSkillDir(root: string): Promise<string> {
-  const files = await fg(["**/SKILL.md"], { cwd: root, onlyFiles: true, dot: true, ignore: ["node_modules/**", ".git/**"] });
-  if (files.length === 0) throw new Error("No SKILL.md found.");
-  if (files.length > 1) throw new Error(`Multiple SKILL.md files found: ${files.slice(0, 5).join(", ")}`);
-  return path.join(root, path.dirname(files[0]!));
+async function singleSkillDir(
+  root: string,
+  source?: string,
+  sourceRootForHint?: string,
+  sourceSubdir?: string
+): Promise<string> {
+  const skillDirs = await findSkillDirs(root);
+  if (skillDirs.length === 0) {
+    if (source) {
+      throw new Error(await noSkillMdErrorMessage(source, sourceRootForHint ?? root, sourceSubdir));
+    }
+    throw new Error("No SKILL.md found.");
+  }
+  if (skillDirs.length > 1) {
+    throw new Error(`Multiple SKILL.md files found: ${skillDirs.map((item) => path.relative(root, item)).slice(0, 5).join(", ")}`);
+  }
+  return skillDirs[0]!;
 }
 
 async function readSkillDependencies(skillPath: string): Promise<string[]> {

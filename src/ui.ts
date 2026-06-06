@@ -2839,6 +2839,7 @@ function renderHtml(options: UiOptions): string {
     let selectedMarketId = null;
     let selectedCliId = null;
     let selectedMcpToolId = null;
+    let selectedHistoryId = null;
     let filterIssuesActive = false;
     let batchInstalledIds = new Set();
     const MARKET_SEEN_KEY = "skillopsSeenMarketSkillIds";
@@ -3169,6 +3170,33 @@ function renderHtml(options: UiOptions): string {
       }
     }
     window.previewSkill = previewSkill;
+    function showHistoryEntry(entryId) {
+      const entry = historyData.find((item) => item.id === entryId);
+      if (!entry) return;
+
+      const modal = document.getElementById("preview-modal");
+      const title = document.getElementById("preview-title");
+      const content = document.getElementById("preview-content");
+      if (!modal || !title || !content) return;
+
+      const subject = entry.subject ?? entry.target ?? "";
+      const details = entry.details ?? entry.meta ?? {};
+      selectedHistoryId = entry.id;
+      renderHistory();
+
+      const payload = {
+        action: entry.action,
+        subject,
+        id: entry.id,
+        at: entry.at,
+        details
+      };
+
+      modal.style.display = "flex";
+      title.textContent = currentLang === "zh" ? "操作历史详情" : "History Entry";
+      content.textContent = JSON.stringify(payload, null, 2);
+    }
+    window.showHistoryEntry = showHistoryEntry;
 
     window.removeCapability = removeCapability;
     window.restoreTrashEntry = restoreTrashEntry;
@@ -3691,6 +3719,14 @@ function renderHtml(options: UiOptions): string {
         if (!response.ok) throw new Error(await response.text());
         const data = await response.json();
         historyData = data.entries || [];
+        if (historyData.length > 0) {
+          const hasSelection = historyData.some((entry) => entry.id === selectedHistoryId);
+          if (!selectedHistoryId || !hasSelection) {
+            selectedHistoryId = historyData[0]?.id ?? null;
+          }
+        } else {
+          selectedHistoryId = null;
+        }
         renderHistory();
       } catch (error) {
         if (historyListEl) {
@@ -4711,23 +4747,27 @@ function renderHtml(options: UiOptions): string {
 
       historyListEl.innerHTML = historyData.map((entry) => {
         const date = new Date(entry.at).toLocaleString();
-        const metaStr = Object.keys(entry.meta || {})
-          .filter(k => k !== "error")
-          .map(k => '<strong>' + escapeText(k) + '</strong>: ' + escapeText(String(entry.meta[k])))
+        const details = entry.details ?? entry.meta ?? {};
+        const subject = String(entry.subject ?? entry.target ?? "");
+        const metaStr = Object.keys(details || {})
+          .filter((k) => k !== "error")
+          .map((k) => '<strong>' + escapeText(k) + '</strong>: ' + escapeText(String(details[k])))
           .join(" | ");
-        
-        let nodeClass = "unknown";
-        if (entry.action === "install") nodeClass = "ok";
-        if (entry.action === "remove") nodeClass = "bad";
+        const action = String(entry.action || "").toLowerCase();
+        const isActive = entry.id === selectedHistoryId ? "active" : "";
 
-        return '<div class="list-card">' +
+        let nodeClass = "unknown";
+        if (action.includes("install") || action.includes("upgrade") || action.includes("restore")) nodeClass = "ok";
+        if (action.includes("remove") || action.includes("delete") || action.includes("trash")) nodeClass = "bad";
+
+        return '<div class="list-card ' + isActive + '" onclick="showHistoryEntry(' + "'" + jsSingleQuote(entry.id || "") + "'" + ')">' +
           '<div class="list-card-header">' +
-            '<span class="list-card-title">' + escapeText(entry.action).toUpperCase() + ' &rarr; ' + escapeText(entry.target) + '</span>' +
+            '<span class="list-card-title">' + escapeText((entry.action || "Unknown").toUpperCase()) + ' &rarr; ' + escapeText(subject) + '</span>' +
             '<span class="pill ' + nodeClass + '" style="font-size:11px; padding:2px 6px;">' + escapeText(new Date(entry.at).toLocaleTimeString()) + '</span>' +
           '</div>' +
           '<div class="list-card-desc" style="font-size:12.5px; color:var(--muted);">' + escapeText(date) + '</div>' +
           (metaStr ? '<div style="font-size:12.5px; margin-top:4px; color:var(--muted);">' + metaStr + '</div>' : '') +
-          (entry.meta?.error ? '<div style="color:var(--bad); margin-top:4px; font-family:monospace; font-size:12px;">Error: ' + escapeText(entry.meta.error) + '</div>' : '') +
+          (details.error ? '<div style="color:var(--bad); margin-top:4px; font-family:monospace; font-size:12px;">Error: ' + escapeText(details.error) + '</div>' : '') +
         '</div>';
       }).join("");
     }

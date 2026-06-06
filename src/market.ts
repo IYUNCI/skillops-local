@@ -552,9 +552,12 @@ export async function installGitHubSkill(
     const candidates = parsed.subdir
       ? [path.join(tempRoot, parsed.subdir)]
       : await findSkillDirs(tempRoot);
-    if (candidates.length === 0) throw new Error("No SKILL.md file found in the GitHub source.");
+    if (candidates.length === 0) {
+      throw new Error(await noSkillMdErrorMessage(source, tempRoot, parsed.subdir));
+    }
     if (candidates.length > 1) {
-      throw new Error(`Multiple skills found. Use a GitHub tree URL for one folder. Found: ${candidates.slice(0, 5).join(", ")}`);
+      const shown = candidates.slice(0, 5).map((candidate) => path.relative(tempRoot, candidate));
+      throw new Error(`Multiple skills found. Use a GitHub tree URL for one folder. Found: ${shown.join(", ")}`);
     }
 
     const sourceDir = candidates[0];
@@ -717,7 +720,7 @@ function getInstallSource(entry: MarketCatalogEntry): string | undefined {
   return `https://github.com/${parsed[1]}/${parsed[2]}/tree/main/${entry.sourceSubdir}`;
 }
 
-async function findSkillDirs(root: string): Promise<string[]> {
+export async function findSkillDirs(root: string): Promise<string[]> {
   const skillFiles = await fg(["**/SKILL.md"], {
     cwd: root,
     onlyFiles: true,
@@ -726,6 +729,66 @@ async function findSkillDirs(root: string): Promise<string[]> {
     ignore: ["node_modules/**", ".git/**"]
   });
   return skillFiles.map((file) => path.join(root, path.dirname(file)));
+}
+
+async function readProjectReadme(root: string): Promise<string | undefined> {
+  const readmeCandidates = [
+    "README.md",
+    "README_EN.md",
+    "readme.md",
+    "README.zh-CN.md"
+  ];
+  for (const candidate of readmeCandidates) {
+    try {
+      return await readFile(path.join(root, candidate), "utf-8");
+    } catch {
+      // ignore
+    }
+  }
+  return undefined;
+}
+
+function stripGitSuffix(repoUrl: string): string {
+  return repoUrl.endsWith(".git") ? repoUrl.slice(0, -4) : repoUrl;
+}
+
+function normalizeBranch(branch?: string): string {
+  return branch?.trim() || "main";
+}
+
+async function buildGitHubSourceHint(source: string, root: string, sourceSubdir?: string): Promise<string[]> {
+  const parsed = parseGitHubSource(source);
+  const repoUrl = stripGitSuffix(parsed.repoUrl);
+  const branch = normalizeBranch(parsed.branch);
+  const scopeHint = sourceSubdir
+    ? `${repoUrl}/tree/${branch}/${sourceSubdir}/<skill-folder>`
+    : `${repoUrl}/tree/${branch}/<skill-folder>`;
+  const hints = [
+    `Try a tree URL that points directly to the skill folder: ${scopeHint}`,
+    `Install path example: ${repoUrl}/tree/${branch}/skills/<skill-name>`
+  ];
+  const readme = await readProjectReadme(root);
+  if (readme?.toLowerCase().includes("skill build")) {
+    hints.unshift("README contains build workflow text; run the repo workflow (for example, skill build) first, then install the generated SKILL directory.");
+  }
+  if (
+    existsSync(path.join(root, "personas"))
+    || existsSync(path.join(root, "src"))
+    || existsSync(path.join(root, ".agents"))
+  ) {
+    hints.push("Repository has runtime/build folders and may be a generator project rather than a ready-to-install skill package.");
+  }
+  return hints;
+}
+
+export async function noSkillMdErrorMessage(source: string, root: string, sourceSubdir?: string): Promise<string> {
+  const hints = await buildGitHubSourceHint(source, root, sourceSubdir);
+  return [
+    "No SKILL.md was found in the provided GitHub source.",
+    "This is usually not a directly installable skill package.",
+    "Please point SkillOps to a single GitHub subtree containing a SKILL.md file.",
+    ...hints.map((hint) => `Hint: ${hint}`)
+  ].join("\n");
 }
 
 export function parseGitHubSource(source: string): { repoUrl: string; subdir?: string; branch?: string } {
