@@ -1,16 +1,16 @@
 {
   "name": "skillops-local",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A local-first Skill and MCP capability workbench for secure AI agent operations.",
   "type": "module",
   "author": "yunpai",
-  "homepage": "https://github.com/your-org/skillops-local",
+  "homepage": "https://github.com/IYUNCI/skillops-local",
   "bugs": {
-    "url": "https://github.com/your-org/skillops-local/issues"
+    "url": "https://github.com/IYUNCI/skillops-local/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-org/skillops-local.git"
+    "url": "git+https://github.com/IYUNCI/skillops-local.git"
   },
   "keywords": [
     "skill",

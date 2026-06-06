@@ -31,9 +31,9 @@ const (
 	skillOpsURL  = "http://" + skillOpsHost + ":" + skillOpsPort
 	logFilePath  = "/tmp/skillops-wails.log"
 
-	defaultUpdateRepoOwner = "your-org"
+	defaultUpdateRepoOwner = "IYUNCI"
 	defaultUpdateRepoName  = "skillops-local"
-	appVersion            = "0.1.5"
+	appVersion            = "0.1.6"
 	appAuthor             = "yunpai"
 	appCopyright          = "Copyright © 2026 云磁数字"
 )

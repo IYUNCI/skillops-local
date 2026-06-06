@@ -39,7 +39,7 @@ const program = new Command();
 program
   .name("skillops")
   .description("Local-first Skill and MCP capability manager")
-  .version("0.1.5");
+  .version("0.1.6");
 
 program
   .command("scan")

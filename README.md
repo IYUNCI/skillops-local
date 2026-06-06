@@ -2,7 +2,7 @@
 
 ![SkillOps Local logo](./assets/skilloips.svg)
 
-[![Release](https://img.shields.io/github/v/release/your-org/skillops-local)](https://github.com/your-org/skillops-local/releases)
+[![Release](https://img.shields.io/github/v/release/IYUNCI/skillops-local)](https://github.com/IYUNCI/skillops-local/releases)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
 ## 应用截图（真实页面）
@@ -10,22 +10,13 @@
 ![SkillOps Home（真实截图）](./assets/screenshots/page-home.png)
 ![SkillOps 工作台（真实截图）](./assets/screenshots/page-workbench.png)
 
-SkillOps Local 是本地优先的 Skill/MCP/Agent 能力工作台。它把“发现、审计、安装、更新”整合到一套桌面客户端与 CLI：先扫描你机器和项目里的 `SKILL.md`、MCP 配置、CLI 工具，再给出依赖关系、风险提示和一键治理建议，所有核心操作都尽量留在本机完成。
+SkillOps Local 已按以下方向开源上线：
 
-SkillOps Local is a local-first desktop and CLI workbench for Skill and MCP ecosystems.
-It discovers local resources, visualizes dependency relationships, runs risk checks, and supports safe install/update workflows with local-first execution.
-
-项目作用：
-- 资产聚合：把分散的 Skill / MCP 资源整合为统一清单。
-- 风险前置：安装/更新前提示高风险脚本、密钥泄露和危险命令。
-- 可控协作：支持本地审计、变更历史和共享迁移。
-- 交付闭环：内置菜单、签名、安装器与更新检查，连接 GitHub 发布。
-
-V0 先解决三件事：
-
-- 扫描本机和项目里的 `SKILL.md`、MCP 配置、commands、hooks。
-- 检查 skill 结构、触发描述、危险脚本、密钥和 prompt injection 风险。
-- 检查 MCP server 配置、环境变量、启动命令，并尝试 `initialize` + `tools/list`。
+- MIT 协议（开源）
+- 本地优先（Local-first）
+- 支持 npm CLI 发布
+- 支持 macOS（Apple Silicon）桌面客户端发布
+- 支持 Windows 桌面客户端发布
 
 ## 快速开始
 
@@ -173,7 +164,7 @@ skillops ui [--port <port>] [--host <host>] [--root <path>] [--open]
 - 原生能力增强：菜单栏支持更新检测、服务重启、签名查询、安装器目录和快速跳转。
 - 上架与发布能力：补齐 App Store 商品元信息、截图说明、GitHub Release 文案（中英）与发布清单。
 
-状态：当前版本可进入“上架准备”阶段，建议补充签名证书与隐私说明后提交。
+状态：版本与版权信息如下，发布素材与文案建议统一使用以下值。
 
 ## 开源协作
 
@@ -210,24 +201,13 @@ npm run desktop:pack:win
 - 发布说明： [release-notes/](./release-notes)
 
 仓库默认文案链接示例：
-- `https://github.com/your-org/skillops-local`
+- `https://github.com/IYUNCI/skillops-local`
 
 如使用其他仓库名，请把 README 与文案中的链接替换为你的正式地址。
 
-## 版本简介（中英文）
+## 版本信息（发布页使用）
 
-### v0.1.5 简介
-
-- 中文：SkillOps Local 0.1.5 正式聚焦桌面发布链路稳定性，补齐真实截图与发布文案，支持 macOS/Windows 打包产物同步、版本检测、签名与安装器路径可见化。
-- English: SkillOps Local 0.1.5 focuses on stable desktop release flow, adds finalized release copy with real screenshots, and improves synchronized macOS/Windows packaging visibility for update checking, signing, and installer paths.
-
-### 资源与截图
-
-- 首页快照（真实）：`assets/screenshots/page-home.png`
-- 工作台快照（真实）：`assets/screenshots/page-workbench.png`
-
----
-
-版本号：0.1.5  
-作者版权：Copyright © 2026 yunpai / 云磁数字  
+版本号：0.1.6  
+作者：yunpai  
+版权信息：Copyright © 2026 yunpai / 云磁数字  
 SHA：发布页补充对应 tag 的提交 SHA 与 `sha256` 校验值（如 `shasum -a 256 <artifact>`）
